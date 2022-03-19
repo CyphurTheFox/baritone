@@ -668,7 +668,7 @@ public final class Settings {
     /**
      * Move without having to force the client-sided rotations
      */
-    public final Setting<Boolean> freeLook = new Setting<>(false);
+    public final Setting<Boolean> freeLook = new Setting<>(true);
 
     /**
      * Will cause some minor behavioral differences to ensure that Baritone works on anticheats.
@@ -868,7 +868,7 @@ public final class Settings {
      * <p>
      * true = build from top to bottom
      */
-    public final Setting<Boolean> layerOrder = new Setting<>(true);
+    public final Setting<Boolean> layerOrder = new Setting<>(false);
 
     /**
      * How high should the individual layers be?
@@ -913,7 +913,7 @@ public final class Settings {
      * <p>
      * Experimental
      */
-    public final Setting<Boolean> breakFromAbove = new Setting<>(true);
+    public final Setting<Boolean> breakFromAbove = new Setting<>(false);
 
     /**
      * As well as breaking from above, set a goal to up and to the side of all blocks to break.
