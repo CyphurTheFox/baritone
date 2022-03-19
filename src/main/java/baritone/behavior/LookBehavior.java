@@ -72,12 +72,20 @@ public final class LookBehavior extends Behavior implements ILookBehavior {
         switch (event.getState()) {
             case PRE: {
                 if (this.force) {
-                    ctx.player().setYRot(this.target.getYaw());
-                    float oldPitch = ctx.player().getXRot();
-                    float desiredPitch = this.target.getPitch();
-                    ctx.player().setXRot(desiredPitch);
-                    ctx.player().setYRot((float) (ctx.player().getYRot() + (Math.random() - 0.5) * Baritone.settings().randomLooking.value));
-                    ctx.player().setXRot((float) (ctx.player().getXRot() +  (Math.random() - 0.5) * Baritone.settings().randomLooking.value));
+                    float oldYaw = Math.round(ctx.player().rotationYaw);
+                    float desiredYaw = Math.round(this.target.getYaw());
+                    float oldPitch = Math.round(ctx.player().rotationPitch);
+                    float desiredPitch = Math.round(this.target.getPitch());
+                    float difYaw = (desiredYaw - oldYaw) / Math.round(Baritone.settings().smoothAim.value + Math.random());
+                    float difPitch = (desiredPitch - oldPitch) / Math.round(Baritone.settings().smoothAim.value + Math.random());
+                    if (ctx.player().rotationYaw != desiredYaw) {
+                        ctx.player().rotationYaw = (ctx.player().rotationYaw + difYaw);
+                    }
+                    if (ctx.player().rotationPitch != desiredPitch) {
+                        ctx.player().rotationPitch = (ctx.player().rotationPitch + difPitch);
+                    }
+                    ctx.player().rotationYaw += (Math.random() - 0.5) * Baritone.settings().randomLooking.value;
+                    ctx.player().rotationPitch += (Math.random() - 0.5) * Baritone.settings().randomLooking.value;
                     if (desiredPitch == oldPitch && !Baritone.settings().freeLook.value) {
                         nudgeToLevel();
                     }
@@ -100,6 +108,7 @@ public final class LookBehavior extends Behavior implements ILookBehavior {
                 break;
         }
     }
+
 
     public void pig() {
         if (this.target != null) {
